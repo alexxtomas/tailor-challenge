@@ -14,9 +14,8 @@ export default function AuthProvider({ children }) {
   const authenticateUser = async (data) => {
     if (typeof window !== 'undefined') {
       const tokenFromServer = await api.login(data)
-      console.log(tokenFromServer)
       if (tokenFromServer) {
-        localStorage.setItem('token', JSON.stringify(data))
+        localStorage.setItem('token', JSON.stringify(tokenFromServer))
         setAuth(true)
       }
 

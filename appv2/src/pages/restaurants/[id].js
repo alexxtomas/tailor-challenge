@@ -73,7 +73,7 @@ export default function Restaurant() {
         }}
       >
         <h3>Reviews</h3>
-        {restaurant.reviews.length === 0
+        {!restaurant.reviews?.length
           ? 'No reviews yet'
           : restaurant.reviews.map((review, i) => {
               return (

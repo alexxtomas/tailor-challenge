@@ -13,13 +13,13 @@ export default function App({ Component, pageProps }) {
   return (
     <Theme>
       <GlobalStyles />
-      <GlobalLayout classname={inter.className}>
-        <AuthProvider>
+      <AuthProvider>
+        <GlobalLayout classname={inter.className}>
           <RestaurantsProvider>
             <Component {...pageProps} />
           </RestaurantsProvider>
-        </AuthProvider>
-      </GlobalLayout>
+        </GlobalLayout>
+      </AuthProvider>
     </Theme>
   )
 }

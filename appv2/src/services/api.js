@@ -6,7 +6,7 @@ let config
 if (typeof window !== 'undefined') {
   config = {
     headers: {
-      authorization: `Bearer ${JSON.parse(window.localStorage.getItem('auth'))}`
+      authorization: `Bearer ${JSON.parse(window.localStorage.getItem('token'))}`
     }
   }
 }
@@ -34,7 +34,7 @@ async function createRestaurant(restaurant) {
     .post(`${baseURL}/restaurants`, form, {
       'Content-Type': 'multipart-form-data',
       headers: {
-        authorization: `Bearer ${JSON.parse(window.localStorage.getItem('auth'))}`
+        authorization: `Bearer ${JSON.parse(window.localStorage.getItem('token'))}`
       }
     })
     .then(({ data }) => data)
@@ -51,7 +51,7 @@ async function updateRestaurantById(id, restaurant) {
     .put(`${baseURL}/restaurants/${id}`, form, {
       'Content-Type': 'multipart-form-data',
       headers: {
-        authorization: `Bearer ${JSON.parse(window.localStorage.getItem('auth'))}`
+        authorization: `Bearer ${JSON.parse(window.localStorage.getItem('token'))}`
       }
     })
     .then(({ data }) => {

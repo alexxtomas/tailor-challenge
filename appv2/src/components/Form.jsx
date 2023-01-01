@@ -63,6 +63,7 @@ export default function Form() {
           if (id) {
             const updated = await updateById(id, values)
             console.log(updated)
+            console.log(values)
             router.push(`/restaurants/${id}`)
           } else {
             const saved = await createOne(values)

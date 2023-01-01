@@ -1,4 +1,5 @@
 import { useState } from 'react'
+// import { useAuth } from '../hooks/useAuth'
 import {
   NavbarContainer,
   NavbarExtendedContainer,
@@ -13,6 +14,8 @@ import NavbarLinks from './NavbarLinks'
 import SwitchMode from './SwitchMode'
 export default function Navbar() {
   const [extended, setExtended] = useState(false)
+  // const { isAuth } = useAuth()
+
   const paths = [
     {
       display: 'Home',
@@ -27,6 +30,7 @@ export default function Navbar() {
       path: '/favorites'
     }
   ]
+
   return (
     <NavbarContainer extended={extended}>
       <NavbarInnerContainer>

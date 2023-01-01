@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
+
 import Restaurant from '../models/Restaurant.js'
 import cloudinary from '../services/cloudinary.js'
 import allowedFormats from '../utils/allowedFormats.js'
@@ -48,26 +49,33 @@ export async function createController(req: Request, res: Response) {
 }
 
 export async function updateController(req: Request, res: Response) {
-  console.log(req.body)
   try {
-    console.log(req.body)
     const { id } = req.params
-    const updatedRestaurant = req.body
-    console.log(updatedRestaurant)
-    if (req.file) {
-      updatedRestaurant.image = req.file.path
+
+    if (!req.file) {
+      const newRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, {
+        new: true
+      })
+
+      if (!newRestaurant)
+        return res.status(400).json({ error: 'No restaurant found' })
     }
-    const restaurantDB = await Restaurant.findByIdAndUpdate(
+    const oldRestaurant = await Restaurant.findById(id)
+    if (!oldRestaurant)
+      return res.status(400).json({ error: 'No restaurant found' })
+
+    await cloudinary.deleteFile(oldRestaurant.image)
+
+    const newRestaurant = {
+      ...req.body,
+      image: req.file?.path
+    }
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
       id,
-      updatedRestaurant,
+      newRestaurant,
       { new: true }
     )
-    if (restaurantDB?.image) await cloudinary.deleteFile(restaurantDB?.image)
-
-    if (!restaurantDB) {
-      return res.status(400).json({ error: 'Restaurant not found' })
-    }
-    return res.status(200).json(updatedRestaurant)
+    return res.status(400).json(updatedRestaurant)
   } catch (err) {
     console.error(err)
   }

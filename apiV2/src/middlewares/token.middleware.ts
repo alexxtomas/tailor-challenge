@@ -10,6 +10,7 @@ export function tokenValidator(
     iat: number
     exp: number
   }
+  console.log(req.body)
   const authorization = req.get('authorization')
 
   if (!authorization?.toLocaleLowerCase().startsWith('bearer')) {
