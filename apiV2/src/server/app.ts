@@ -9,6 +9,7 @@ import cloudinary from '../services/cloudinary.js'
 const app: Application = express()
 
 cloudinary.setUp()
+// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 app.set('port', process.env.PORT || 3001)
 // Middlewares
 app.use(cors())
